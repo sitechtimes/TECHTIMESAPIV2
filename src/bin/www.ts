@@ -1,0 +1,81 @@
+#!/usr/bin/env node
+
+/**
+ * Server Setup for Express Application.
+ *
+ * This script initializes and starts the HTTP server for the Express application.
+ * It sets the port, handles errors, and listens for incoming connections.
+ *
+ * The script utilizes the 'debug' module for logging server activity and
+ * manages port normalization and error handling during server startup.
+ */
+
+/* Module dependencies. */
+const app = require("../app.ts"); // Import the Express application
+const debug = require("debug"); // Debugging utility for logging server events
+const http = require("http"); // HTTP module to create the server
+
+const serverDebug = debug("express:server"); // Create a debug instance for the server
+
+/* Get port from environment and store in Express. */
+const port = normalizePort(process.env.PORT || "6942"); // Normalize the port value
+app.set("port", port); // Set the port for the Express application
+
+/* Create HTTP server. */
+const server = http.createServer(app); // Create an HTTP server using the Express app
+
+/* Listen on provided port, on all network interfaces. */
+server.listen(port); // Start the server listening on the specified port
+server.on("error", onError); // Listen for server errors
+server.on("listening", onListening); // Listen for the server's listening event
+
+/* Normalize a port into a number, string, or false. */
+function normalizePort(num) {
+  const portNum = parseInt(num, 10); // Convert the port value to an integer
+
+  if (isNaN(portNum)) {
+    // Named pipe case
+    return num;
+  }
+
+  if (portNum >= 0) {
+    // Valid port number case
+    return portNum;
+  }
+
+  return false; // Return false for invalid port numbers
+}
+
+/* Event listener for HTTP server "error" event. */
+function onError(error: NodeJS.ErrnoException): void {
+  if (error.syscall !== "listen") {
+    throw error; // Re-throw the error if it's not a "listen" error
+  }
+
+  const bind = typeof port === "string" ? "Pipe " + port : "Port " + port; // Determine the binding message
+
+  // Handle specific listen errors with friendly messages
+  switch (error.code) {
+    case "EACCES":
+      console.error(`${bind} requires elevated privileges`); // Insufficient permissions
+      process.exit(1); // Exit the process
+      break;
+    case "EADDRINUSE":
+      console.error(`${bind} is already in use`); // Port already in use
+      process.exit(1); // Exit the process
+      break;
+    default:
+      throw error; // Re-throw other errors
+  }
+}
+
+/* Event listener for HTTP server "listening" event. */
+function onListening(): void {
+  const addr = server.address(); // Get the server address
+  const bind = addr
+    ? typeof addr === "string"
+      ? "pipe " + addr
+      : "port " + addr.port
+    : "unknown"; // Determine the binding message
+  serverDebug("Listening on " + bind); // Log the server's listening status
+}

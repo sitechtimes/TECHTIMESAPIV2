@@ -1,14 +1,6 @@
 import mongoose from "mongoose";
-
-interface Category {
-  id: string;
-  name: string;
-}
-
-interface Position {
-  x: number;
-  y: number;
-}
+import Category from "./Category";
+import Position from "./Position";
 
 interface HomepageAttrs {
   title: string;
@@ -96,7 +88,7 @@ const homepageSchema = new mongoose.Schema(
   }
 );
 
-homepageSchema.statics.build = (attrs: HomepageAttrs) => {
+homepageSchema.statics.build = (attrs /* : HomepageAttrs */) => {
   return new Homepage(attrs);
 };
 
