@@ -19,8 +19,8 @@ import cookieParser from "cookie-parser"; // Middleware for parsing cookies
 import logger from "morgan"; // HTTP request logger middleware
 
 // Import routers for different routes
-import indexRouter from "./routes/index"; // Router for the index/home route
-import usersRouter from "./routes/users"; // Router for user-related routes
+/* import indexRouter from "./routes/index"; // Router for the index/home route
+import usersRouter from "./routes/users"; // Router for user-related routes */
 
 const app = express(); // Create an instance of the Express application
 
@@ -36,8 +36,8 @@ app.use(cookieParser() as express.RequestHandler); // Middleware to parse cookie
 app.use(express.static(path.join(__dirname, "public"))); // Serve static files from the 'public' directory
 
 // Route setup
-app.use("/", indexRouter); // Use the index router for the root route
-app.use("/users", usersRouter); // Use the users router for routes prefixed with /users
+/* app.use("/", indexRouter); // Use the index router for the root route
+app.use("/users", usersRouter); // Use the users router for routes prefixed with /users */
 
 // Catch 404 errors and forward to error handler
 app.use((req: Request, res: Response, next: NextFunction) => {
