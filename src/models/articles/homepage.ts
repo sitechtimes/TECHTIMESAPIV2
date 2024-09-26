@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
-import Category from "./Category";
-import Position from "./Position";
+/* import Category from "./Category";
+import Position from "./Position"; */
 
 interface HomepageAttrs {
   title: string;
@@ -12,7 +12,7 @@ interface HomepageAttrs {
     name: string;
     imageUrl: string;
   };
-  position: Position;
+  /*   position: Position; */
   slug: string;
 }
 
@@ -30,7 +30,7 @@ export interface HomepageDoc extends mongoose.Document {
     name: string;
     imageUrl: string;
   };
-  position: Position;
+  /*   position: Position; */
   slug: string;
 }
 
@@ -50,7 +50,7 @@ const homepageSchema = new mongoose.Schema(
       required: true,
     },
     category: {
-      type: Category,
+      /*       type: Category, */
       required: true,
     },
     user: {
@@ -68,7 +68,7 @@ const homepageSchema = new mongoose.Schema(
       },
     },
     position: {
-      type: Position,
+      /*       type: Position, */
       required: true,
     },
     slug: {

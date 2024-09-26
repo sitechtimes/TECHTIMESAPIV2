@@ -18,7 +18,7 @@ const http = require("http"); // HTTP module to create the server
 const serverDebug = debug("express:server"); // Create a debug instance for the server
 
 /* Get port from environment and store in Express. */
-const port = normalizePort(process.env.PORT || "6942"); // Normalize the port value
+const port = normalizePort(process.env.PORT || "8888"); // Normalize the port value
 app.set("port", port); // Set the port for the Express application
 
 /* Create HTTP server. */
@@ -47,7 +47,7 @@ function normalizePort(num) {
 }
 
 /* Event listener for HTTP server "error" event. */
-function onError(error: NodeJS.ErrnoException): void {
+function onError(error) {
   if (error.syscall !== "listen") {
     throw error; // Re-throw the error if it's not a "listen" error
   }
@@ -70,7 +70,7 @@ function onError(error: NodeJS.ErrnoException): void {
 }
 
 /* Event listener for HTTP server "listening" event. */
-function onListening(): void {
+function onListening() {
   const addr = server.address(); // Get the server address
   const bind = addr
     ? typeof addr === "string"
@@ -78,4 +78,5 @@ function onListening(): void {
       : "port " + addr.port
     : "unknown"; // Determine the binding message
   serverDebug("Listening on " + bind); // Log the server's listening status
+  console.log("api on port 8888");
 }

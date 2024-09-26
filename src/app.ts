@@ -12,27 +12,28 @@
  * It also defines routes for the main application and user-related endpoints.
  */
 
-import createError from "http-errors"; // Middleware for creating HTTP errors
-import express, { Request, Response, NextFunction } from "express"; // Express web framework and types
-import path from "path"; // Utility for working with file and directory paths
-import cookieParser from "cookie-parser"; // Middleware for parsing cookies
-import logger from "morgan"; // HTTP request logger middleware
+const createError = require("http-errors"); // Middleware for creating HTTP errors
+const path = require("path"); // Utility for working with file and directory paths
+const express = require("express"); // Express web framework
+const RequestHandler = require("express");
+const cookieParser = require("cookie-parser"); // Middleware for parsing cookies
+const logger = require("morgan"); // HTTP request logger middleware
 
 // Import routers for different routes
 /* import indexRouter from "./routes/index"; // Router for the index/home route
 import usersRouter from "./routes/users"; // Router for user-related routes */
 
-const app = express(); // Create an instance of the Express application
+let app = express(); // Create an instance of the Express application
 
 // View engine setup
 app.set("views", path.join(__dirname, "views")); // Set the directory for view templates
 app.set("view engine", "pug"); // Set the template engine to Pug
 
 // Middleware setup
-app.use(logger("dev") as express.RequestHandler); // Use Morgan to log HTTP requests in development mode
+app.use(logger("dev")); // Use Morgan to log HTTP requests in development mode
 app.use(express.json()); // Middleware to parse JSON request bodies
 app.use(express.urlencoded({ extended: false })); // Middleware to parse URL-encoded request bodies
-app.use(cookieParser() as express.RequestHandler); // Middleware to parse cookies
+app.use(cookieParser()); // Middleware to parse cookies
 app.use(express.static(path.join(__dirname, "public"))); // Serve static files from the 'public' directory
 
 // Route setup
@@ -40,12 +41,12 @@ app.use(express.static(path.join(__dirname, "public"))); // Serve static files f
 app.use("/users", usersRouter); // Use the users router for routes prefixed with /users */
 
 // Catch 404 errors and forward to error handler
-app.use((req: Request, res: Response, next: NextFunction) => {
+app.use((req, res, next) => {
   next(createError(404)); // Create a 404 error and pass it to the next middleware
 });
 
 // Error handler middleware
-app.use((err: any, req: Request, res: Response, next: NextFunction) => {
+app.use((err, req, res, next) => {
   // Set locals for error handling
   res.locals.message = err.message; // Provide the error message
   res.locals.error = req.app.get("env") === "development" ? err : {}; // Provide error stack in development mode
@@ -56,4 +57,4 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
 });
 
 // Export the Express application for use in other modules
-export default app;
+module.exports = app;
