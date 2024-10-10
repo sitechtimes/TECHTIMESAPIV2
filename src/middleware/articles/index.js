@@ -23,14 +23,11 @@ import { Homepage } from "../../models/articles/homepage.js"; // Import the Home
  * @throws {Error} If there is an error connecting to the database or retrieving articles.
  */
 
-export const articlesHomepage = async (
-  req: Request,
-  res: Response
-): Promise<void> => {
+export const articlesHomepage = async () => {
   try {
     await connectToDatabase(); // Connect to the MongoDB database
 
-    const query: { category?: string; position?: string } = {}; // Initialize an empty query object
+    const query = {}; // Initialize an empty query object
 
     // Check for the 'category' query parameter and add it to the query object if present
     if (req.query.category) {

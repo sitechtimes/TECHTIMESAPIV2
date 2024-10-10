@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "node ./src/bin/www.ts"
+    "dev": "node ./src/bin/www"
   },
   "dependencies": {
     "body-parser": "^1.20.3",

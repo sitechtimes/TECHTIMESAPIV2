@@ -1,19 +1,9 @@
-/**
- * MongoDB connection module using Mongoose.
- * This module provides a function to connect to the MongoDB database,
- * caching the connection promise to avoid multiple connections.
- */
+const mongoose = require("mongoose");
+const express = require("express");
+const router = new express.Router();
 
-import mongoose from "mongoose"; // Import the Mongoose library
+let cachedPromise = null; // Variable to cache the connection promise
 
-let cachedPromise: any = null; // Variable to cache the connection promise
-
-/**
- * Connect to the MongoDB database.
- *
- * @throws {Error} If JWT_KEY or MONGO_URI environment variables are not defined.
- * @returns {Promise} A promise that resolves to the Mongoose connection.
- */
 export const connectToDatabase = async () => {
   // Check if the JWT_KEY environment variable is defined
   if (!process.env.JWT_KEY) {
@@ -33,3 +23,5 @@ export const connectToDatabase = async () => {
   // Return the cached promise
   return cachedPromise; // This ensures that the same connection is used throughout the app
 };
+
+router.get("/");
