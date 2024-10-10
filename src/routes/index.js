@@ -6,7 +6,7 @@
 
 import mongoose from "mongoose"; // Import the Mongoose library
 
-let cachedPromise: any = null; // Variable to cache the connection promise
+let cachedPromise = null; // Variable to cache the connection promise
 
 /**
  * Connect to the MongoDB database.
