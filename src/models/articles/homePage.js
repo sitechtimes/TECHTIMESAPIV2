@@ -1,38 +1,4 @@
 import mongoose from "mongoose";
-/* import Category from "./Category";
-import Position from "./Position"; */
-
-interface HomepageAttrs {
-  title: string;
-  content: string;
-  imageUrl: string;
-  category: string;
-  user: {
-    id: string;
-    name: string;
-    imageUrl: string;
-  };
-  /*   position: Position; */
-  slug: string;
-}
-
-interface HomepageModel extends mongoose.Model<HomepageDoc> {
-  build(attrs: HomepageAttrs): HomepageDoc;
-}
-
-export interface HomepageDoc extends mongoose.Document {
-  title: string;
-  content: string;
-  imageUrl: string;
-  category: string;
-  user: {
-    id: string;
-    name: string;
-    imageUrl: string;
-  };
-  /*   position: Position; */
-  slug: string;
-}
 
 const homepageSchema = new mongoose.Schema(
   {
@@ -50,7 +16,7 @@ const homepageSchema = new mongoose.Schema(
       required: true,
     },
     category: {
-      /*       type: Category, */
+      /* type: Category, */
       required: true,
     },
     user: {
@@ -68,7 +34,7 @@ const homepageSchema = new mongoose.Schema(
       },
     },
     position: {
-      /*       type: Position, */
+      /* type: Position, */
       required: true,
     },
     slug: {
@@ -88,14 +54,11 @@ const homepageSchema = new mongoose.Schema(
   }
 );
 
-homepageSchema.statics.build = (attrs /* : HomepageAttrs */) => {
+homepageSchema.statics.build = (attrs) => {
   return new Homepage(attrs);
 };
 
 mongoose.deleteModel("Homepage");
-const Homepage = mongoose.model<HomepageDoc, HomepageModel>(
-  "Homepage",
-  homepageSchema
-);
+const Homepage = mongoose.model("Homepage", homepageSchema);
 
 export { homepageSchema, Homepage };

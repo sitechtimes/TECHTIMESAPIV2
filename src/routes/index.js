@@ -2,9 +2,10 @@ const mongoose = require("mongoose");
 const express = require("express");
 const router = new express.Router();
 
-let cachedPromise = null; // Variable to cache the connection promise
+const authController = require("../controllers/authController");
 
-export const connectToDatabase = async () => {
+let cachedPromise = null; // Variable to cache the connection promise
+const connectToDatabase = async () => {
   // Check if the JWT_KEY environment variable is defined
   if (!process.env.JWT_KEY) {
     throw new Error("JWT_KEY must be defined"); // Throw an error if not defined
@@ -24,4 +25,7 @@ export const connectToDatabase = async () => {
   return cachedPromise; // This ensures that the same connection is used throughout the app
 };
 
-router.get("/");
+router.get("/", authController.auth);
+
+module.exports = connectToDatabase;
+module.exports = router;
