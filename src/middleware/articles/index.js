@@ -4,24 +4,10 @@
  * for the homepage based on optional query parameters.
  */
 
-import express, { Request, Response } from "express"; // Import Express and types for Request and Response
-import { connectToDatabase } from "../../routes/index"; // Import the function to connect to the database
-import { Homepage } from "../../models/articles/homepage.js"; // Import the Homepage model for MongoDB
-
-/**
- * Handle requests to the articles homepage.
- *
- * This function connects to the MongoDB database and retrieves articles based
- * on optional query parameters for category and position. If parameters are
- * provided, they are used to filter the articles returned.
- *
- * @param {Request} req - The Express request object, containing query parameters.
- * @param {Response} res - The Express response object used to send data back to the client.
- *
- * @returns {Promise<void>} A promise that resolves when the articles are sent as a response.
- *
- * @throws {Error} If there is an error connecting to the database or retrieving articles.
- */
+const express = require("express"); // Import Express
+const { request, response } = require("express"); // Import types for Request and Response
+const connectToDatabase = require("../../routes/index"); // Import the function to connect to the MongoDB database
+const homePage = require("../../models/auth/user"); // Import the Homepage model for MongoDB
 
 export const articlesHomepage = async () => {
   try {

@@ -1,7 +1,7 @@
-const User = require("~/models/articles/homePage");
+const User = require("../models/auth/user");
+require("dotenv").config({ path: "variables.env" });
 
 exports.auth = async (req, res, next) => {
   try {
-    console.log("live");
   } catch (error) {}
 };

@@ -3,6 +3,7 @@ const express = require("express");
 const router = new express.Router();
 
 const authController = require("../controllers/authController");
+const homePageController = require("../controllers/homePageController");
 
 let cachedPromise = null; // Variable to cache the connection promise
 const connectToDatabase = async () => {
@@ -25,7 +26,7 @@ const connectToDatabase = async () => {
   return cachedPromise; // This ensures that the same connection is used throughout the app
 };
 
-router.get("/", authController.auth);
+router.get("/", homePageController.homePage);
 
 module.exports = connectToDatabase;
 module.exports = router;
