@@ -1,18 +1,11 @@
-const createError = require("http-errors"); // Middleware for creating HTTP errors
-const path = require("path"); // Utility for working with file and directory paths
-const express = require("express"); // Express web framework
-const RequestHandler = require("express");
 const cookieParser = require("cookie-parser"); // Middleware for parsing cookies
+const createError = require("http-errors"); // Middleware for creating HTTP errors
+const express = require("express"); // Express web framework
 const logger = require("morgan"); // HTTP request logger middleware
-
+const path = require("path"); // Utility for working with file and directory paths
 const routes = require("./routes/index");
 
-// Import routers for different routes
-/* import indexRouter from "./routes/index"; // Router for the index/home route
-import usersRouter from "./routes/users"; // Router for user-related routes */
-
 let app = express(); // Create an instance of the Express application
-
 app.use("/", routes);
 
 // View engine setup
@@ -20,20 +13,11 @@ app.set("views", path.join(__dirname, "views")); // Set the directory for view t
 app.set("view engine", "jade"); // Set the template engine to Jade
 
 // Middleware setup
-app.use(logger("dev")); // Use Morgan to log HTTP requests in development mode
-app.use(express.json()); // Middleware to parse JSON request bodies
-app.use(express.urlencoded({ extended: false })); // Middleware to parse URL-encoded request bodies
 app.use(cookieParser()); // Middleware to parse cookies
+app.use(express.json()); // Middleware to parse JSON request bodies
 app.use(express.static(path.join(__dirname, "public"))); // Serve static files from the 'public' directory
-
-// Route setup
-/* app.use("/", indexRouter); // Use the index router for the root route
-app.use("/users", usersRouter); // Use the users router for routes prefixed with /users */
-
-// Catch 404 errors and forward to error handler
-/* app.use((req, res, next) => {
-  next(createError(404)); // Create a 404 error and pass it to the next middleware
-}); */
+app.use(express.urlencoded({ extended: false })); // Middleware to parse URL-encoded request bodies
+app.use(logger("dev")); // Use Morgan to log HTTP requests in development mode
 
 // Error handler middleware
 app.use((err, req, res, next) => {

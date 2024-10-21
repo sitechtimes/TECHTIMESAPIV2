@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const homepageSchema = new mongoose.Schema(
+const userSchema = new mongoose.Schema(
   {
     title: {
       type: String,
@@ -53,10 +53,10 @@ const homepageSchema = new mongoose.Schema(
     },
   }
 );
-homepageSchema.statics.build = (attrs) => {
+/* userSchema.statics.build = (attrs) => {
   return new Homepage(attrs);
-};
+}; */
 
 /* mongoose.deleteModel("Homepage"); */
 
-module.exports = mongoose.model("Homepage", homepageSchema);
+module.exports = mongoose.model("user", userSchema);

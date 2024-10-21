@@ -4,9 +4,8 @@
  * for the homepage based on optional query parameters.
  */
 
-const express = require("express"); // Import Express
-const { request, response } = require("express"); // Import types for Request and Response
 const connectToDatabase = require("../../routes/index"); // Import the function to connect to the MongoDB database
+const express = require("express"); // Import Express
 const homePage = require("../../models/auth/user"); // Import the Homepage model for MongoDB
 
 export const articlesHomepage = async () => {

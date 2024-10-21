@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
 const express = require("express");
+const mongoose = require("mongoose");
 const router = new express.Router();
 
 const authController = require("../controllers/authController");
@@ -27,6 +27,7 @@ const connectToDatabase = async () => {
 };
 
 router.get("/", homePageController.homePage);
+router.get("/user", authController.auth);
 
 module.exports = connectToDatabase;
 module.exports = router;
