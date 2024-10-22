@@ -16,3 +16,5 @@ const testSchema = new mongoose.Schema({
   couponUsed: Boolean,
   purchaseMethod: String,
 });
+
+module.exports = mongoose.model("sample_supplies", testSchema);

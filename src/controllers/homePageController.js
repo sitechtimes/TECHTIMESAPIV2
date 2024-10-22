@@ -1,5 +1,5 @@
-const homePage = require("../models/articles/homePage");
 require("dotenv").config({ path: ".env" });
+const homePage = require("../models/articles/homePage");
 
 exports.homePage = async (req, res) => {
   try {

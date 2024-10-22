@@ -5,6 +5,7 @@ const logger = require("morgan"); // HTTP request logger middleware
 const path = require("path"); // Utility for working with file and directory paths
 const routes = require("./routes/index");
 
+require("./DB/mongoose");
 let app = express(); // Create an instance of the Express application
 app.use("/", routes);
 
