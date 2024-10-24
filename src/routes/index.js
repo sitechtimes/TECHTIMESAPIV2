@@ -27,7 +27,7 @@ const connectToDatabase = async () => {
 };
 
 router.get("/", homePageController.homePage);
-router.get("/user", authController.auth);
+router.post("/user", authController.auth);
 
 module.exports = connectToDatabase;
 module.exports = router;

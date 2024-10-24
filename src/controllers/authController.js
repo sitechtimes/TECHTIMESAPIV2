@@ -1,18 +1,22 @@
 require("dotenv").config({ path: ".env" });
-const sample_supplies = require("../models/test");
+const sales = require("../models/test");
 
 exports.auth = async (req, res, next) => {
   try {
-    const data = sample_supplies.sales;
+    const data = new sales(req.body);
 
     /* const salesData = [];
     sample_supplies.forEach((e) => {
       salesData.push(e.sales);
     }); */
 
-    res.json(data);
+    /* res.json(data); */
     /* return salesData; */
-  } catch (error) {
+    await data.save();
+
+    res.json("success bitch");
+  } catch (err) {
+    console.log(err);
     res.json(
       "verification failed. kevins french kiss denied. kevins special spanish spanking being delivered"
     );
