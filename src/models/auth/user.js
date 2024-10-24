@@ -53,10 +53,5 @@ const userSchema = new mongoose.Schema(
     },
   }
 );
-/* userSchema.statics.build = (attrs) => {
-  return new Homepage(attrs);
-}; */
-
-/* mongoose.deleteModel("Homepage"); */
 
 module.exports = mongoose.model("user", userSchema);

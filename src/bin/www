@@ -1,13 +1,3 @@
-/*
-Server Setup for Express Application.
-
-This script initializes and starts the HTTP server for the Express application.
-It sets the port, handles errors, and listens for incoming connections.
-
-The script utilizes the 'debug' module for logging server activity and
-manages port normalization and error handling during server startup.
-*/
-
 /* Module dependencies */
 const app = require("../app"); // Import the Express application
 const debug = require("debug"); // Debugging utility for logging server events
