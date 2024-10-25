@@ -1,22 +1,24 @@
 const mongoose = require("mongoose");
+const ObjectId = require("mongodb").ObjectId;
 
 const testSchema = new mongoose.Schema({
-  _id: String,
+  id: String,
   saleDate: Date,
   items: [
     {
       name: String,
-      tags: [
-        {
-          String,
-        },
-      ],
+      tags: [String],
       price: Number,
       quantity: Number,
     },
   ],
   storeLocation: String,
-  customer: Object,
+  customer: {
+    gender: String,
+    age: Number,
+    email: String,
+    satisfaction: Number,
+  },
   couponUsed: Boolean,
   purchaseMethod: String,
 });
