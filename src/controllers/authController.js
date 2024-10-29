@@ -6,7 +6,7 @@ exports.auth = async (req, res, next) => {
     const data = new sales(req.body);
     await data.save();
 
-    res.json("success bitch");
+    res.json("kevin has successfully given a french kiss");
     next();
   } catch (err) {
     console.log(err);
