@@ -1,7 +1,7 @@
 import express from "express";
 import { NotFoundError } from "@sitechtimes/shared";
 import { requireAuth } from "@sitechtimes/shared";
-import { User } from "../models/user";
+import { User } from "../../models/users/user";
 import { connectToDatabase } from "../index";
 
 const router = express.Router();

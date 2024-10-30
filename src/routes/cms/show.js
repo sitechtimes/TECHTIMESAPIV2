@@ -1,11 +1,11 @@
 import { connectToDatabase } from "../index";
-import { Draft } from "../models/draft";
+import { Draft } from "../../models/cms/draft";
 import {
   NotAuthorizedError,
   NotFoundError,
   requireAuth,
 } from "@sitechtimes/shared";
-import { Role } from "../models/role";
+import { Role } from "../../models/cms/role";
 import express from "express";
 
 const router = express.Router();

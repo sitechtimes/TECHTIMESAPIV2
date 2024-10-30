@@ -1,6 +1,6 @@
 import connectToDatabase from "../index";
 import express from "express";
-import Homepage from "../../models/articles/homePage";
+import Homepage from "../../models/articles/homepage";
 
 const router = express.Router();
 

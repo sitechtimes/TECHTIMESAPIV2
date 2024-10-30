@@ -1,6 +1,6 @@
 import express from "express";
 import { NotAuthorizedError, requireAuth } from "@sitechtimes/shared";
-import { User } from "../models/user";
+import { User } from "../../models/users/user";
 import { connectToDatabase } from "../index";
 
 const router = express.Router();

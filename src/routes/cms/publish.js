@@ -3,10 +3,10 @@ import { NotFoundError, requireAuth, roles } from "@sitechtimes/shared";
 import express from "express";
 import mongoose from "mongoose";
 
-import { Article } from "../models/article";
-import { Draft } from "../models/draft";
-import { Homepage } from "../models/homepage";
-import { Position } from "../models/position";
+import { Article } from "../../models/cms/article";
+import { Draft } from "../../models/cms/draft";
+import { Homepage } from "../../models/cms/homepage";
+import { Position } from "../../models/cms/position";
 
 const router = express.Router();
 

@@ -2,7 +2,7 @@ import express from "express";
 import { body } from "express-validator";
 
 import { connectToDatabase } from "../index";
-import { User } from "../models/user";
+import { User } from "../../models/auth/user";
 import { validateRequest, BadRequestError } from "@sitechtimes/shared";
 import { Verify } from "../services/verify";
 

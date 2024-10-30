@@ -1,4 +1,4 @@
-import { Category } from "../models/category";
+import { Category } from "../../models/cms/category";
 import express from "express";
 
 const router = express.Router();

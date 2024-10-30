@@ -1,4 +1,4 @@
-import Article from "../../models/articles/homePage";
+import Article from "../../models/articles/article";
 import connectToDatabase from "../index";
 import express from "express";
 

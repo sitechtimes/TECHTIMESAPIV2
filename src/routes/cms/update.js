@@ -4,9 +4,9 @@ import {
   NotFoundError,
   requireAuth,
 } from "@sitechtimes/shared";
-import { Role } from "../models/role";
-import { DraftStatus } from "../models/draftStatus";
-import { Draft } from "../models/draft";
+import { Role } from "../../models/cms/role";
+import { DraftStatus } from "../../models/cms/draftStatus";
+import { Draft } from "../../models/cms/draft";
 import { connectToDatabase } from "../index";
 import sanitize from "sanitize-html";
 

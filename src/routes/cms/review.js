@@ -1,6 +1,6 @@
 import { connectToDatabase } from "../index";
-import { Draft } from "../models/draft";
-import { DraftStatus } from "../models/draftStatus";
+import { Draft } from "../../models/cms/draft";
+import { DraftStatus } from "../../models/cms/draftStatus";
 import { requireAuth, roles } from "@sitechtimes/shared";
 import express from "express";
 

@@ -6,7 +6,7 @@ require("dotenv").config({ path: ".env" });
 
 import { connectToDatabase } from "../index";
 import { Password } from "../services/password";
-import { User } from "../models/user";
+import { User } from "../../models/auth/user";
 
 const router = express.Router();
 

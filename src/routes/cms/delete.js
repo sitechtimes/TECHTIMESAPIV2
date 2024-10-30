@@ -4,7 +4,7 @@ import {
   requireAuth,
   NotAuthorizedError,
 } from "@sitechtimes/shared";
-import { Draft } from "../models/draft";
+import { Draft } from "../../models/cms/draft";
 import { connectToDatabase } from "../index";
 
 const router = express.Router();

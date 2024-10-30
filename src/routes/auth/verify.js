@@ -3,7 +3,7 @@ import jwt, { decode } from "jsonwebtoken";
 
 import { BadRequestError, NotFoundError } from "@sitechtimes/shared";
 import { connectToDatabase } from "../index";
-import { User } from "../models/user";
+import { User } from "../../models/auth/user";
 
 const router = express.Router();
 

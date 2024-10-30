@@ -2,6 +2,20 @@ const express = require("express");
 const mongoose = require("mongoose");
 const router = new express.Router();
 
+const homepageArticlesRouter = require("./articles/homepage");
+const indexArticleRouter = require("./articles/index");
+const showArticleRouter = require("./articles/show");
+
+const currentUserRouter = require("./auth/current-user");
+const signinRouter = require("./auth/signin");
+const signoutRouter = require("./auth/signout");
+const signupRouter = require("./auth/signup");
+const verifyRouter = require("./auth/verify");
+
+const categoriesRouter = require("./cms/categories");
+const deleteDraftRouter = require("./cms/delete");
+const indexDraftRouter = require("./cms/index");
+
 const authController = require("../controllers/authController");
 const homePageController = require("../controllers/homePageController");
 
