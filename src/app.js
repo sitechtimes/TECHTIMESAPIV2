@@ -9,6 +9,52 @@ require("./DB/mongoose");
 let app = express(); // Create an instance of the Express application
 app.use("/", routes);
 
+const homepageArticlesRouter = require("./articles/homepage");
+app.use(homepageArticlesRouter);
+const indexArticleRouter = require("./articles/index");
+app.use(indexArticleRouter);
+const showArticleRouter = require("./articles/show");
+app.use(showArticleRouter);
+
+const currentUserRouter = require("./auth/current-user");
+app.use(currentUserRouter);
+const signinRouter = require("./auth/signin");
+app.use(signinRouter);
+const signoutRouter = require("./auth/signout");
+app.use(signoutRouter);
+const signupRouter = require("./auth/signup");
+app.use(signupRouter);
+const verifyRouter = require("./auth/verify");
+app.use(verifyRouter);
+
+const categoriesRouter = require("./cms/categories");
+app.use(categoriesRouter);
+const deleteDraftRouter = require("./cms/delete");
+app.use(deleteDraftRouter);
+const indexDraftRouter = require("./cms/index");
+app.use(indexDraftRouter);
+const createDraftRouter = require("./cms/new");
+app.use(createDraftRouter);
+const publishDraftRouter = require("./cms/publish");
+app.use(publishDraftRouter);
+const readyDraftsRouter = require("./cms/ready");
+app.use(readyDraftsRouter);
+const reviewDraftsRouter = require("./cms/review");
+app.use(reviewDraftsRouter);
+const showDraftRouter = require("./cms/show");
+app.use(showDraftRouter);
+const updateDraftRouter = require("./cms/update");
+app.use(updateDraftRouter);
+
+const deleteUserRouter = require("./users/delete");
+app.use(deleteUserRouter);
+const usersRouter = require("./users/index");
+app.use(usersRouter);
+const showUserRouter = require("./users/show");
+app.use(showUserRouter);
+const updateUserRouter = require("./users/update");
+app.use(updateUserRouter);
+
 // View engine setup
 app.set("views", path.join(__dirname, "views")); // Set the directory for view templates
 app.set("view engine", "jade"); // Set the template engine to Jade
