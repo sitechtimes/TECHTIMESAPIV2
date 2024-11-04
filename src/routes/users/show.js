@@ -1,8 +1,8 @@
-import express from "express";
-import { NotFoundError } from "@sitechtimes/shared";
-import { requireAuth } from "@sitechtimes/shared";
-import { User } from "../../models/users/user";
-import { connectToDatabase } from "../index";
+const express = require("express");
+const { NotFoundError } = require("@sitechtimes/shared");
+const { requireAuth } = require("@sitechtimes/shared");
+const { User } = require("../../models/users/user");
+const { connectToDatabase } = require("../index");
 
 const router = express.Router();
 
@@ -18,4 +18,4 @@ router.get("/users/:id", requireAuth, async (req, res) => {
   res.send(user);
 });
 
-export { router as showUserRouter };
+module.exports = router;

@@ -1,6 +1,6 @@
-import connectToDatabase from "../index";
-import express from "express";
-import Homepage from "../../models/articles/homepage";
+const connectToDatabase = require("../index");
+const express = require("express");
+const Homepage = require("../../models/articles/homepage.ts");
 
 const router = express.Router();
 
@@ -21,4 +21,4 @@ router.get("/articles/homepage", async (req, res) => {
   res.send(homepages);
 });
 
-export { router as homepageArticlesRouter };
+module.exports = router;

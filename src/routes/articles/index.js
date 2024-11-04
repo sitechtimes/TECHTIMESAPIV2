@@ -1,6 +1,6 @@
-import Article from "../../models/articles/article";
-import connectToDatabase from "../index";
-import express from "express";
+const Article = require("../../models/articles/article");
+const connectToDatabase = require("../index");
+const express = require("express");
 
 const router = express.Router();
 
@@ -28,4 +28,4 @@ router.get("/articles/", async (req, res) => {
   res.status(200).send(articles);
 });
 
-export { router as indexArticleRouter };
+module.exports = router;

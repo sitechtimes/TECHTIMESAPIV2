@@ -1,12 +1,12 @@
-import { body } from "express-validator";
-import { validateRequest, BadRequestError } from "@sitechtimes/shared";
-import express from "express";
-import jwt from "jsonwebtoken";
+const { body } = require("express-validator");
+const { validateRequest, BadRequestError } = require("@sitechtimes/shared");
+const express = require("express");
+const jwt = require("jsonwebtoken");
 require("dotenv").config({ path: ".env" });
 
-import { connectToDatabase } from "../index";
-import { Password } from "../services/password";
-import { User } from "../../models/auth/user";
+const { connectToDatabase } = require("../index");
+const { Password } = require("../services/password");
+const { User } = require("../../models/auth/user");
 
 const router = express.Router();
 
@@ -61,4 +61,4 @@ router.post(
   }
 );
 
-export { router as signinRouter };
+module.exports = router;

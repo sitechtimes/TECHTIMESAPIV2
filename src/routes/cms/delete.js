@@ -1,11 +1,11 @@
-import express from "express";
-import {
+const express = require("express");
+const {
   NotFoundError,
   requireAuth,
   NotAuthorizedError,
-} from "@sitechtimes/shared";
-import { Draft } from "../../models/cms/draft";
-import { connectToDatabase } from "../index";
+} = require("@sitechtimes/shared");
+const { Draft } = require("../../models/cms/draft");
+const { connectToDatabase } = require("../index");
 
 const router = express.Router();
 
@@ -25,4 +25,4 @@ router.delete("/cms/:id/", requireAuth, async (req, res) => {
   res.sendStatus(204);
 });
 
-export { router as deleteDraftRouter };
+module.exports = router;

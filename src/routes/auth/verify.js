@@ -1,9 +1,10 @@
-import express from "express";
-import jwt, { decode } from "jsonwebtoken";
+const express = require("express");
+const jwt = require("jsonwebtoken");
+const { decode } = require("jsonwebtoken");
 
-import { BadRequestError, NotFoundError } from "@sitechtimes/shared";
-import { connectToDatabase } from "../index";
-import { User } from "../../models/auth/user";
+const { BadRequestError, NotFoundError } = require("@sitechtimes/shared");
+const { connectToDatabase } = require("../index");
+const { User } = require("../../models/auth/user");
 
 const router = express.Router();
 
@@ -45,4 +46,4 @@ router.get("/auth/verify/:token", async (req, res) => {
   res.status(200).send({ ...user.toJSON(), token: userJWT });
 });
 
-export { router as verifyRouter };
+module.exports = router;

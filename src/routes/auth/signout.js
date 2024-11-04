@@ -1,4 +1,4 @@
-import express from "express";
+const express = require("express");
 
 const router = express.Router();
 
@@ -7,4 +7,4 @@ router.post("/auth/signout", (req, res) => {
   res.status(204).send({});
 });
 
-export { router as signoutRouter };
+module.exports = router;

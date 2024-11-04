@@ -1,10 +1,10 @@
-import express from "express";
-import { body } from "express-validator";
+const express = require("express");
+const { body } = require("express-validator");
 
-import { connectToDatabase } from "../index";
-import { User } from "../../models/auth/user";
-import { validateRequest, BadRequestError } from "@sitechtimes/shared";
-import { Verify } from "../services/verify";
+const { connectToDatabase } = require("../index");
+const { User } = require("../../models/auth/user");
+const { validateRequest, BadRequestError } = require("@sitechtimes/shared");
+const { Verify } = require("../services/verify");
 
 const router = express.Router();
 
@@ -49,4 +49,4 @@ router.post(
   }
 );
 
-export { router as signupRouter };
+module.exports = router;

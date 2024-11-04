@@ -1,7 +1,7 @@
-import { connectToDatabase } from "../index";
-import { Draft } from "../../models/cms/draft";
-import { requireAuth } from "@sitechtimes/shared";
-import express from "express";
+const { connectToDatabase } = require("../index");
+const { Draft } = require("../../models/cms/draft");
+const { requireAuth } = require("@sitechtimes/shared");
+const express = require("express");
 
 const router = express.Router();
 
@@ -19,4 +19,4 @@ router.post("/cms/", requireAuth, async (req, res) => {
   res.status(201).send(draft);
 });
 
-export { router as createDraftRouter };
+module.exports = router;

@@ -1,9 +1,9 @@
-import express from "express";
-import { NotAuthorizedError, NotFoundError } from "@sitechtimes/shared";
-import { requireAuth } from "@sitechtimes/shared";
-import { User } from "../../models/users/user";
-import { Role } from "../../models/users/role";
-import { connectToDatabase } from "../index";
+const express = require("express");
+const { NotAuthorizedError, NotFoundError } = require("@sitechtimes/shared");
+const { requireAuth } = require("@sitechtimes/shared");
+const { User } = require("../../models/users/user");
+const { Role } = require("../../models/users/role");
+const { connectToDatabase } = require("../index");
 
 const router = express.Router();
 
@@ -37,4 +37,4 @@ router.put("/users/:id", requireAuth, async (req, res) => {
   res.send(user);
 });
 
-export { router as updateUserRouter };
+module.exports = router;

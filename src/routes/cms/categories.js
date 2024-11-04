@@ -1,5 +1,5 @@
-import { Category } from "../../models/cms/category";
-import express from "express";
+const { Category } = require("../../models/cms/category");
+const express = require("express");
 
 const router = express.Router();
 
@@ -9,4 +9,4 @@ router.get("/cms/categories", async (req, res) => {
   res.status(200).send(categories);
 });
 
-export { router as categoriesRouter };
+module.exports = router;

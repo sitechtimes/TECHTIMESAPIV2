@@ -1,8 +1,12 @@
-import express from "express";
-import { NotAuthorizedError, requireAuth, roles } from "@sitechtimes/shared";
-import { Role } from "../../models/users/role";
-import { User } from "../../models/users/user";
-import { connectToDatabase } from "../index";
+const express = require("express");
+const {
+  NotAuthorizedError,
+  requireAuth,
+  roles,
+} = require("@sitechtimes/shared");
+const { Role } = require("../../models/users/role");
+const { User } = require("../../models/users/user");
+const { connectToDatabase } = require("../index");
 
 const router = express.Router();
 
@@ -14,4 +18,4 @@ router.get("/users/", requireAuth, roles(["admin"]), async (req, res) => {
   res.send(users);
 });
 
-export { router as usersRouter };
+module.exports = router;

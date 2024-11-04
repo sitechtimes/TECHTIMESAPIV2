@@ -1,14 +1,14 @@
-import express from "express";
-import {
+const express = require("express");
+const {
   NotAuthorizedError,
   NotFoundError,
   requireAuth,
-} from "@sitechtimes/shared";
-import { Role } from "../../models/cms/role";
-import { DraftStatus } from "../../models/cms/draftStatus";
-import { Draft } from "../../models/cms/draft";
-import { connectToDatabase } from "../index";
-import sanitize from "sanitize-html";
+} = require("@sitechtimes/shared");
+const { Role } = require("../../models/cms/role");
+const { DraftStatus } = require("../../models/cms/draftStatus");
+const { Draft } = require("../../models/cms/draft");
+const { connectToDatabase } = require("../index");
+const sanitize = require("sanitize-html");
 
 const router = express.Router();
 
@@ -84,4 +84,4 @@ router.put("/cms/:id/", requireAuth, async (req, res) => {
   res.send(draft);
 });
 
-export { router as updateDraftRouter };
+module.exports = router;

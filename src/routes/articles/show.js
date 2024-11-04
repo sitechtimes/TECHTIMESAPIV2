@@ -1,7 +1,7 @@
-import Article from "../../models/articles/article";
-import { NotFoundError } from "@sitechtimes/shared";
-import connectToDatabase from "../index";
-import express from "express";
+const Article = require("../../models/articles/article");
+const { NotFoundError } = require("@sitechtimes/shared");
+const connectToDatabase = require("../index");
+const express = require("express");
 
 const router = express.Router();
 
@@ -19,4 +19,4 @@ router.get("/articles/:slug", async (req, res) => {
   res.status(200).send(article);
 });
 
-export { router as showArticleRouter };
+module.exports = router;

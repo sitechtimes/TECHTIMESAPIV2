@@ -1,12 +1,12 @@
-import { connectToDatabase } from "../index";
-import { Draft } from "../../models/cms/draft";
-import {
+const { connectToDatabase } = require("../index");
+const { Draft } = require("../../models/cms/draft");
+const {
   NotAuthorizedError,
   NotFoundError,
   requireAuth,
-} from "@sitechtimes/shared";
-import { Role } from "../../models/cms/role";
-import express from "express";
+} = require("@sitechtimes/shared");
+const { Role } = require("../../models/cms/role");
+const express = require("express");
 
 const router = express.Router();
 
@@ -32,4 +32,4 @@ router.get("/cms/:id", requireAuth, async (req, res) => {
   res.send(draft);
 });
 
-export { router as showDraftRouter };
+module.exports = router;

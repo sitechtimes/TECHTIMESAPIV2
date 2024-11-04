@@ -1,12 +1,12 @@
-import { connectToDatabase } from "../index";
-import { NotFoundError, requireAuth, roles } from "@sitechtimes/shared";
-import express from "express";
-import mongoose from "mongoose";
+const { connectToDatabase } = require("../index");
+const { NotFoundError, requireAuth, roles } = require("@sitechtimes/shared");
+const express = require("express");
+const mongoose = require("mongoose");
 
-import { Article } from "../../models/cms/article";
-import { Draft } from "../../models/cms/draft";
-import { Homepage } from "../../models/cms/homepage";
-import { Position } from "../../models/cms/position";
+const { Article } = require("../../models/cms/article");
+const { Draft } = require("../../models/cms/draft");
+const { Homepage } = require("../../models/cms/homepage");
+const { Position } = require("../../models/cms/position");
 
 const router = express.Router();
 
@@ -73,4 +73,4 @@ router.post(
   }
 );
 
-export { router as publishDraftRouter };
+module.exports = router;

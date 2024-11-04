@@ -9,50 +9,50 @@ require("./DB/mongoose");
 let app = express(); // Create an instance of the Express application
 app.use("/", routes);
 
-const homepageArticlesRouter = require("./articles/homepage");
+const homepageArticlesRouter = require("./routes/articles/homepage");
 app.use(homepageArticlesRouter);
-const indexArticleRouter = require("./articles/index");
+const indexArticleRouter = require("./routes/articles/index");
 app.use(indexArticleRouter);
-const showArticleRouter = require("./articles/show");
+const showArticleRouter = require("./routes/articles/show");
 app.use(showArticleRouter);
 
-const currentUserRouter = require("./auth/current-user");
+const currentUserRouter = require("./routes/auth/current-user");
 app.use(currentUserRouter);
-const signinRouter = require("./auth/signin");
+const signinRouter = require("./routes/auth/signin");
 app.use(signinRouter);
-const signoutRouter = require("./auth/signout");
+const signoutRouter = require("./routes/auth/signout");
 app.use(signoutRouter);
-const signupRouter = require("./auth/signup");
+const signupRouter = require("./routes/auth/signup");
 app.use(signupRouter);
-const verifyRouter = require("./auth/verify");
+const verifyRouter = require("./routes/auth/verify");
 app.use(verifyRouter);
 
-const categoriesRouter = require("./cms/categories");
+const categoriesRouter = require("./routes/cms/categories");
 app.use(categoriesRouter);
-const deleteDraftRouter = require("./cms/delete");
+const deleteDraftRouter = require("./routes/cms/delete");
 app.use(deleteDraftRouter);
-const indexDraftRouter = require("./cms/index");
+const indexDraftRouter = require("./routes/cms/index");
 app.use(indexDraftRouter);
-const createDraftRouter = require("./cms/new");
+const createDraftRouter = require("./routes/cms/new");
 app.use(createDraftRouter);
-const publishDraftRouter = require("./cms/publish");
+const publishDraftRouter = require("./routes/cms/publish");
 app.use(publishDraftRouter);
-const readyDraftsRouter = require("./cms/ready");
+const readyDraftsRouter = require("./routes/cms/ready");
 app.use(readyDraftsRouter);
-const reviewDraftsRouter = require("./cms/review");
+const reviewDraftsRouter = require("./routes/cms/review");
 app.use(reviewDraftsRouter);
-const showDraftRouter = require("./cms/show");
+const showDraftRouter = require("./routes/cms/show");
 app.use(showDraftRouter);
-const updateDraftRouter = require("./cms/update");
+const updateDraftRouter = require("./routes/cms/update");
 app.use(updateDraftRouter);
 
-const deleteUserRouter = require("./users/delete");
+const deleteUserRouter = require("./routes/users/delete");
 app.use(deleteUserRouter);
-const usersRouter = require("./users/index");
+const usersRouter = require("./routes/users/index");
 app.use(usersRouter);
-const showUserRouter = require("./users/show");
+const showUserRouter = require("./routes/users/show");
 app.use(showUserRouter);
-const updateUserRouter = require("./users/update");
+const updateUserRouter = require("./routes/users/update");
 app.use(updateUserRouter);
 
 // View engine setup
