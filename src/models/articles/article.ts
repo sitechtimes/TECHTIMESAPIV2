@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
-import { Category } from "./category";
+
+const Category = require("./category");
 
 interface ArticleAttrs {
   title: string;
@@ -90,4 +91,4 @@ const Article = mongoose.model<ArticleDoc, ArticleModel>(
   articleSchema
 );
 
-export { articleSchema, Article };
+module.exports = { articleSchema, Article };
