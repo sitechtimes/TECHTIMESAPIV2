@@ -1,7 +1,7 @@
+"use strict";
 const mongoose = require("mongoose");
 const { Category } = require("./category.ts");
 const { Position } = require("./position.ts");
-
 /* interface HomepageAttrs {
   title: string;
   content: string;
@@ -15,7 +15,6 @@ const { Position } = require("./position.ts");
   position: Position;
   slug: string;
 } */
-
 /* interface HomepageModel extends mongoose.Model<HomepageDoc> {
   build(attrs: HomepageAttrs): HomepageDoc;
 }
@@ -33,65 +32,58 @@ export interface HomepageDoc extends mongoose.Document {
   position: Position;
   slug: string;
 } */
-
-const cmsHomePageSchema = new mongoose.Schema(
-  {
+const cmsHomePageSchema = new mongoose.Schema({
     title: {
-      type: String,
-      required: true,
+        type: String,
+        required: true,
     },
     imageUrl: {
-      type: String,
-      default: null,
-      required: false,
+        type: String,
+        default: null,
+        required: false,
     },
     content: {
-      type: String,
-      required: true,
+        type: String,
+        required: true,
     },
     category: {
-      type: Category,
-      required: true,
+        type: Category,
+        required: true,
     },
     user: {
-      id: {
-        type: String,
-        required: true,
-      },
-      name: {
-        type: String,
-        required: true,
-      },
-      imageUrl: {
-        type: String,
-        required: false,
-      },
+        id: {
+            type: String,
+            required: true,
+        },
+        name: {
+            type: String,
+            required: true,
+        },
+        imageUrl: {
+            type: String,
+            required: false,
+        },
     },
     position: {
-      type: Position,
-      required: true,
+        type: Position,
+        required: true,
     },
     slug: {
-      type: String,
-      required: true,
+        type: String,
+        required: true,
     },
-  },
-  {
+}, {
     timestamps: true,
     toJSON: {
-      transform(doc: any, ret: { id: any; _id: any; __v: any }) {
-        ret.id = ret._id;
-        delete ret._id;
-        delete ret.__v;
-      },
+        transform(doc, ret) {
+            ret.id = ret._id;
+            delete ret._id;
+            delete ret.__v;
+        },
     },
-  }
-);
-
-cmsHomePageSchema.statics.build = (attrs: any /* : HomepageAttrs */) => {
-  return new cmsHomePage(attrs);
+});
+cmsHomePageSchema.statics.build = (attrs /* : HomepageAttrs */) => {
+    return new cmsHomePage(attrs);
 };
-
 const cmsHomePage = mongoose.model("Homepage", cmsHomePageSchema);
-
 module.exports = { cmsHomePageSchema, cmsHomePage };
