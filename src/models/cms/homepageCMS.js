@@ -1,20 +1,7 @@
 "use strict";
-const mongoose = require("mongoose");
-const { Category } = require("./category.ts");
-const { Position } = require("./position.ts");
-/* interface HomepageAttrs {
-  title: string;
-  content: string;
-  imageUrl: string;
-  category: string;
-  user: {
-    id: string;
-    name: string;
-    imageUrl: string;
-  };
-  position: Position;
-  slug: string;
-} */
+const mongoose0 = require("mongoose");
+const { Category0 } = require("./category.ts");
+const { Position0 } = require("./position.ts");
 /* interface HomepageModel extends mongoose.Model<HomepageDoc> {
   build(attrs: HomepageAttrs): HomepageDoc;
 }
@@ -32,7 +19,7 @@ export interface HomepageDoc extends mongoose.Document {
   position: Position;
   slug: string;
 } */
-const cmsHomePageSchema = new mongoose.Schema({
+const cmsHomePageSchema = new mongoose0.Schema({
     title: {
         type: String,
         required: true,
@@ -47,7 +34,7 @@ const cmsHomePageSchema = new mongoose.Schema({
         required: true,
     },
     category: {
-        type: Category,
+        type: Category0,
         required: true,
     },
     user: {
@@ -65,7 +52,7 @@ const cmsHomePageSchema = new mongoose.Schema({
         },
     },
     position: {
-        type: Position,
+        type: Position0,
         required: true,
     },
     slug: {
@@ -75,15 +62,15 @@ const cmsHomePageSchema = new mongoose.Schema({
 }, {
     timestamps: true,
     toJSON: {
-        transform(doc, ret) {
-            ret.id = ret._id;
-            delete ret._id;
-            delete ret.__v;
-        },
+    /* transform(doc: any, ret: { id: any; _id: any; __v: any }) {
+      ret.id = ret._id;
+      delete ret._id;
+      delete ret.__v;
+    }, */
     },
 });
-cmsHomePageSchema.statics.build = (attrs /* : HomepageAttrs */) => {
+cmsHomePageSchema.statics.build = (attrs) => {
     return new cmsHomePage(attrs);
 };
-const cmsHomePage = mongoose.model("Homepage", cmsHomePageSchema);
+const cmsHomePage = mongoose0.model("Homepage", cmsHomePageSchema);
 module.exports = { cmsHomePageSchema, cmsHomePage };

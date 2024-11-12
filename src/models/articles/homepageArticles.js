@@ -1,9 +1,9 @@
 "use strict";
 const mongoose = require("mongoose");
-const { Category } = require("./category.ts");
-const { Position } = require("./position.ts");
+const Category = require("./category.ts");
+const Position = require("./position.ts");
 /* interface HomepageModel extends mongoose.Model<HomepageDoc> {
-  build(attrs: HomepageAttrs): HomepageDoc;
+  build(attrs: homepageArticlesAttrs): HomepageDoc;
 }
 
 export interface HomepageDoc extends mongoose.Document {

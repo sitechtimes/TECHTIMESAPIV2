@@ -6,7 +6,7 @@
 
 const connectToDatabase = require("../../routes/index"); // Import the function to connect to the MongoDB database
 const express = require("express"); // Import Express
-const homePage = require("../../models/articles/homepage.ts"); // Import the Homepage model for MongoDB
+const homePage = require("../../models/articles/homepageArticles.ts"); // Import the Homepage model for MongoDB
 
 export const articlesHomepage = async () => {
   try {

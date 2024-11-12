@@ -1,8 +1,8 @@
-const mongoose = require("mongoose");
-const { Category } = require("./category.ts");
-const { Position } = require("./position.ts");
+const mongoose0 = require("mongoose");
+const { Category0 } = require("./category.ts");
+const { Position0 } = require("./position.ts");
 
-/* interface HomepageAttrs {
+interface homepageCMSAttrs {
   title: string;
   content: string;
   imageUrl: string;
@@ -12,9 +12,9 @@ const { Position } = require("./position.ts");
     name: string;
     imageUrl: string;
   };
-  position: Position;
+  position: typeof Position;
   slug: string;
-} */
+}
 
 /* interface HomepageModel extends mongoose.Model<HomepageDoc> {
   build(attrs: HomepageAttrs): HomepageDoc;
@@ -34,7 +34,7 @@ export interface HomepageDoc extends mongoose.Document {
   slug: string;
 } */
 
-const cmsHomePageSchema = new mongoose.Schema(
+const cmsHomePageSchema = new mongoose0.Schema(
   {
     title: {
       type: String,
@@ -50,7 +50,7 @@ const cmsHomePageSchema = new mongoose.Schema(
       required: true,
     },
     category: {
-      type: Category,
+      type: Category0,
       required: true,
     },
     user: {
@@ -68,7 +68,7 @@ const cmsHomePageSchema = new mongoose.Schema(
       },
     },
     position: {
-      type: Position,
+      type: Position0,
       required: true,
     },
     slug: {
@@ -79,19 +79,19 @@ const cmsHomePageSchema = new mongoose.Schema(
   {
     timestamps: true,
     toJSON: {
-      transform(doc: any, ret: { id: any; _id: any; __v: any }) {
+      /* transform(doc: any, ret: { id: any; _id: any; __v: any }) {
         ret.id = ret._id;
         delete ret._id;
         delete ret.__v;
-      },
+      }, */
     },
   }
 );
 
-cmsHomePageSchema.statics.build = (attrs: any /* : HomepageAttrs */) => {
+cmsHomePageSchema.statics.build = (attrs: homepageCMSAttrs) => {
   return new cmsHomePage(attrs);
 };
 
-const cmsHomePage = mongoose.model("Homepage", cmsHomePageSchema);
+const cmsHomePage = mongoose0.model("Homepage", cmsHomePageSchema);
 
 module.exports = { cmsHomePageSchema, cmsHomePage };

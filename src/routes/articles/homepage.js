@@ -1,6 +1,6 @@
 const connectToDatabase = require("../index");
 const express = require("express");
-const Homepage = require("../../models/articles/homepage.ts");
+const Homepage = require("../../models/articles/homepageArticles.ts");
 
 const router = express.Router();
 

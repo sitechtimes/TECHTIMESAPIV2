@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
-const { Category } = require("./category.ts");
-const { Position } = require("./position.ts");
+const Category = require("./category.ts");
+const Position = require("./position.ts");
 
-interface HomepageAttrs {
+interface homepageArticlesAttrs {
   title: string;
   content: string;
   imageUrl: string;
@@ -17,7 +17,7 @@ interface HomepageAttrs {
 }
 
 /* interface HomepageModel extends mongoose.Model<HomepageDoc> {
-  build(attrs: HomepageAttrs): HomepageDoc;
+  build(attrs: homepageArticlesAttrs): HomepageDoc;
 }
 
 export interface HomepageDoc extends mongoose.Document {
@@ -88,7 +88,7 @@ const articlesHomePageSchema = new mongoose.Schema(
   }
 );
 
-articlesHomePageSchema.statics.build = (attrs: HomepageAttrs) => {
+articlesHomePageSchema.statics.build = (attrs: homepageArticlesAttrs) => {
   return new articlesHomePage(attrs);
 };
 
