@@ -2,6 +2,19 @@
 const mongoose = require("mongoose");
 const { Category } = require("./category.ts");
 const { Position } = require("./position.ts");
+/* interface HomepageAttrs {
+  title: string;
+  content: string;
+  imageUrl: string;
+  category: string;
+  user: {
+    id: string;
+    name: string;
+    imageUrl: string;
+  };
+  position: Position;
+  slug: string;
+} */
 /* interface HomepageModel extends mongoose.Model<HomepageDoc> {
   build(attrs: HomepageAttrs): HomepageDoc;
 }
@@ -16,10 +29,10 @@ export interface HomepageDoc extends mongoose.Document {
     name: string;
     imageUrl: string;
   };
-  position: typeof Position;
+  position: Position;
   slug: string;
 } */
-const articlesHomePageSchema = new mongoose.Schema({
+const cmsHomePageSchema = new mongoose.Schema({
     title: {
         type: String,
         required: true,
@@ -62,15 +75,15 @@ const articlesHomePageSchema = new mongoose.Schema({
 }, {
     timestamps: true,
     toJSON: {
-    /* transform(doc: any, ret: { id: any; _id: any; __v: any }) {
-      ret.id = ret._id;
-      delete ret._id;
-      delete ret.__v;
-    }, */
+        transform(doc, ret) {
+            ret.id = ret._id;
+            delete ret._id;
+            delete ret.__v;
+        },
     },
 });
-articlesHomePageSchema.statics.build = (attrs) => {
-    return new articlesHomePage(attrs);
+cmsHomePageSchema.statics.build = (attrs /* : HomepageAttrs */) => {
+    return new cmsHomePage(attrs);
 };
-const articlesHomePage = mongoose.model("Homepage", articlesHomePageSchema);
-module.exports = { articlesHomePageSchema, articlesHomePage };
+const cmsHomePage = mongoose.model("Homepage", cmsHomePageSchema);
+module.exports = { cmsHomePageSchema, cmsHomePage };

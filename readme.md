@@ -13,4 +13,4 @@ Always use the typescript version of files if there are javascript and typescrip
 npm run dev
 ```
 
-Starts the development server with hot reload
+Starts the dev server with hot reload
