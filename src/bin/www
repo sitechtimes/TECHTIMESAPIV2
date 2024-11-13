@@ -1,5 +1,5 @@
 /* Module dependencies */
-const app = require("../app"); // Import the Express application
+import app from "../app"; // Import the Express application
 const debug = require("debug"); // Debugging utility for logging server events
 const http = require("http"); // HTTP module to create the server
 

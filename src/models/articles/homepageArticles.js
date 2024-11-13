@@ -1,7 +1,12 @@
 "use strict";
-const mongoose = require("mongoose");
-const Category = require("./category.ts");
-const Position = require("./position.ts");
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.articlesHomePage = exports.articlesHomePageSchema = void 0;
+const mongoose_1 = __importDefault(require("mongoose"));
+const category_ts_1 = require("./category.ts");
+const position_ts_1 = require("./position.ts");
 /* interface HomepageModel extends mongoose.Model<HomepageDoc> {
   build(attrs: homepageArticlesAttrs): HomepageDoc;
 }
@@ -19,7 +24,7 @@ export interface HomepageDoc extends mongoose.Document {
   position: typeof Position;
   slug: string;
 } */
-const articlesHomePageSchema = new mongoose.Schema({
+const articlesHomePageSchema = new mongoose_1.default.Schema({
     title: {
         type: String,
         required: true,
@@ -34,7 +39,7 @@ const articlesHomePageSchema = new mongoose.Schema({
         required: true,
     },
     category: {
-        type: Category,
+        type: category_ts_1.Category,
         required: true,
     },
     user: {
@@ -52,7 +57,7 @@ const articlesHomePageSchema = new mongoose.Schema({
         },
     },
     position: {
-        type: Position,
+        type: position_ts_1.Position,
         required: true,
     },
     slug: {
@@ -69,8 +74,9 @@ const articlesHomePageSchema = new mongoose.Schema({
     }, */
     },
 });
+exports.articlesHomePageSchema = articlesHomePageSchema;
 articlesHomePageSchema.statics.build = (attrs) => {
     return new articlesHomePage(attrs);
 };
-const articlesHomePage = mongoose.model("Homepage", articlesHomePageSchema);
-module.exports = { articlesHomePageSchema, articlesHomePage };
+const articlesHomePage = mongoose_1.default.model("Homepage", articlesHomePageSchema);
+exports.articlesHomePage = articlesHomePage;

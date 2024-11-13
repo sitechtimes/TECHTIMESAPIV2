@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
-const Category = require("./category.ts");
-const Position = require("./position.ts");
+import mongoose from "mongoose";
+import { Category } from "./category.ts";
+import { Position } from "./position.ts";
 
 interface homepageArticlesAttrs {
   title: string;
@@ -12,7 +12,7 @@ interface homepageArticlesAttrs {
     name: string;
     imageUrl: string;
   };
-  position: typeof Position;
+  position: Position;
   slug: string;
 }
 
@@ -94,4 +94,4 @@ articlesHomePageSchema.statics.build = (attrs: homepageArticlesAttrs) => {
 
 const articlesHomePage = mongoose.model("Homepage", articlesHomePageSchema);
 
-module.exports = { articlesHomePageSchema, articlesHomePage };
+export default { articlesHomePageSchema, articlesHomePage };

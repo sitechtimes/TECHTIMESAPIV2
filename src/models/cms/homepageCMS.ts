@@ -1,6 +1,6 @@
-const mongoose0 = require("mongoose");
-const { Category0 } = require("./category.ts");
-const { Position0 } = require("./position.ts");
+import mongoose from "mongoose";
+import { Category } from "./category.ts";
+import { Position } from "./position.ts";
 
 interface homepageCMSAttrs {
   title: string;
@@ -12,7 +12,7 @@ interface homepageCMSAttrs {
     name: string;
     imageUrl: string;
   };
-  position: typeof Position;
+  position: Position;
   slug: string;
 }
 
@@ -34,7 +34,7 @@ export interface HomepageDoc extends mongoose.Document {
   slug: string;
 } */
 
-const cmsHomePageSchema = new mongoose0.Schema(
+const cmsHomePageSchema = new mongoose.Schema(
   {
     title: {
       type: String,
@@ -50,7 +50,7 @@ const cmsHomePageSchema = new mongoose0.Schema(
       required: true,
     },
     category: {
-      type: Category0,
+      type: Category,
       required: true,
     },
     user: {
@@ -68,7 +68,7 @@ const cmsHomePageSchema = new mongoose0.Schema(
       },
     },
     position: {
-      type: Position0,
+      type: Position,
       required: true,
     },
     slug: {
@@ -92,6 +92,6 @@ cmsHomePageSchema.statics.build = (attrs: homepageCMSAttrs) => {
   return new cmsHomePage(attrs);
 };
 
-const cmsHomePage = mongoose0.model("Homepage", cmsHomePageSchema);
+const cmsHomePage = mongoose.model("Homepage", cmsHomePageSchema);
 
 module.exports = { cmsHomePageSchema, cmsHomePage };

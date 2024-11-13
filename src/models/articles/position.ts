@@ -1,5 +1,5 @@
-module.exports = {
-  main: "main",
-  sub: "sub",
-  detail: "detail",
-};
+export enum Position {
+  main = "main",
+  sub = "sub",
+  detail = "detail",
+}
