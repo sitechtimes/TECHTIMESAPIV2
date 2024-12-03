@@ -6,7 +6,7 @@ const path = require("path"); // Utility for working with file and directory pat
 const routes = require("./routes/index");
 
 require("./DB/mongoose");
-let app = express(); // Create an instance of the Express application
+const app = express(); // Create an instance of the Express application
 app.use("/", routes);
 
 const homepageArticlesRouter = require("./routes/articles/homepage");
