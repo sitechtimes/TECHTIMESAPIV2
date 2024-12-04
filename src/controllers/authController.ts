@@ -12,6 +12,24 @@ async function signUp(req: Request, res: Response) {
     return;
   }
 
+  // check email. it'll be actually verified later...
+  if (!/^\S+@\S+\.\S+$/.test(email)) {
+    res.status(400).json({ message: "bad email" });
+    return;
+  }
+
+  // check password length
+  if (password.length > 16 || password.length < 8) {
+    res.status(400).json({ message: "password must be between 8 and 16 characters" });
+    return;
+  }
+
+  // check if email already in use
+  if (await User.exists({ email }).exec()) {
+    res.status(400).json({ message: "email already in use" });
+    return;
+  }
+
   res.status(200).json({ message: "your sign is up pal" });
 
   // if (await User.findOne({ email })) res.status(409).json({ message: "user already exists" });

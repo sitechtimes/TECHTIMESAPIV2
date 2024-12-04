@@ -14,7 +14,7 @@ function postTrimmer(req: Request, res: Response, next: NextFunction) {
   }
   next();
 }
-
+// trim ALL the things
 app.use(postTrimmer);
 
 const apiRoutes = require("./routes/auth");
@@ -29,7 +29,7 @@ mongoose.connect(process.env.MONGO_URI ?? "").catch((err) => {
 });
 
 mongoose.connection.once("open", async () => {
-  console.log("Mongoose is connected");
+  console.log("the mongoose is loose");
   app.listen(port, () => {
     console.log(`App is listening at http://localhost:${port}`);
   });
