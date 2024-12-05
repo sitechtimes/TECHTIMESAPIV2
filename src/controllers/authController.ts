@@ -1,5 +1,7 @@
 import express, { Request, Response } from "express";
 import { User } from "../models/auth/user";
+import jwt from "jsonwebtoken";
+import nodemailer from "nodemailer";
 
 async function signUp(req: Request, res: Response) {
   // body("name").notEmpty().withMessage("Name can't be empty"),
@@ -42,6 +44,42 @@ async function signUp(req: Request, res: Response) {
   // await Verify.sendVerificationEmail(email, randString);
 
   // res.status(201).send(user.toJSON());
+  try {
+    const verificationToken = jwt.sign({ email }, process.env.JWT_KEY!, { expiresIn: "20m" });
+
+    const newUser = await User.create({
+      name,
+      email,
+      password,
+      verified: false,
+      verificationCode: verificationToken,
+    });
+    await newUser.save();
+
+    const transport = nodemailer.createTransport({
+      host: "smtp.gmail.com",
+      port: 587,
+      secure: false,
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASSWORD,
+      },
+    });
+
+    let mailOptions = {
+      from: process.env.EMAIL_USER,
+      to: email.toString(),
+      subject: "TechTimes Email confirmation",
+      html: `Hello there, click the following link to verify your email: <a href="${process.env.URL}/auth/verify/${verificationToken}">Verify Email</a>`,
+    };
+
+    await transport.sendMail(mailOptions);
+
+    res.status(201).json({ message: "verify email" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "error" });
+  }
 }
 
 module.exports = { signUp };

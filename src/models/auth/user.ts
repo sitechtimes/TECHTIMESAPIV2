@@ -13,7 +13,7 @@ interface UserDoc extends mongoose.Document {
   name: string;
   email: string;
   password: string;
-  role: Role;
+  role: string;
   verified: boolean;
   verificationCode: string;
 }
@@ -36,7 +36,7 @@ const userSchema = new mongoose.Schema(
       trim: true,
     },
     role: {
-      type: Role,
+      type: String,
       default: Role.Writer,
       required: true,
     },
