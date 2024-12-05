@@ -4,12 +4,23 @@ const express = require("express"); // Express web framework
 const logger = require("morgan"); // HTTP request logger middleware
 const path = require("path"); // Utility for working with file and directory paths
 const routes = require("./routes/index");
+const mongoose = require("mongoose");
+
+const port = process.env.PORT || 8008; // Normalize the port value
+const debug = require("debug"); // Debugging utility for logging server events
+const http = require("http"); // HTTP module to create the server
 
 require("./DB/mongoose");
 const app = express(); // Create an instance of the Express application
+const server = http.createServer(app); // Create an HTTP server using the Express app
+const serverDebug = debug("express:server"); // Create a debug instance for the server
 app.use("/", routes);
 
-const homepageArticlesRouter = require("./routes/articles/homepage");
+app.get("/", (req, res) => {
+  res.send("Hello World");
+});
+
+/* const homepageArticlesRouter = require("./routes/articles/homepage");
 app.use(homepageArticlesRouter);
 const indexArticleRouter = require("./routes/articles/index");
 app.use(indexArticleRouter);
@@ -53,7 +64,7 @@ app.use(usersRouter);
 const showUserRouter = require("./routes/users/show");
 app.use(showUserRouter);
 const updateUserRouter = require("./routes/users/update");
-app.use(updateUserRouter);
+app.use(updateUserRouter); */
 
 // View engine setup
 app.set("views", path.join(__dirname, "views")); // Set the directory for view templates
@@ -75,6 +86,28 @@ app.use((err, req, res, next) => {
   // Render the error page with the appropriate status code
   res.status(err.status || 500);
   res.render("error"); // Render the error view
+});
+
+mongoose
+  .connect(process.env.DATABASE_URI)
+  .then(() => {
+    console.log("Connected to Database");
+  })
+  .catch((err) => {
+    console.log("Not Connected to Database ERROR! ", err);
+  });
+mongoose.connection.on(
+  // only opens database once connection is secure
+  "error",
+  console.error.bind(console, "MongoDB connection error:")
+);
+mongoose.connection.once("open", async () => {
+  console.log("Mongoose is connected");
+  app.listen(port, () => {
+    console.log(`App is listening at http://localhost:${port}`);
+  });
+  const databases = await mongoose.connection.db.admin().listDatabases();
+  console.log("Databases:", databases.databases);
 });
 
 module.exports = app;

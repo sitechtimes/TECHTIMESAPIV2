@@ -94,4 +94,4 @@ articlesHomePageSchema.statics.build = (attrs: homepageArticlesAttrs) => {
 
 const articlesHomePage = mongoose.model("Homepage", articlesHomePageSchema);
 
-export default { articlesHomePageSchema, articlesHomePage };
+module.exports = { articlesHomePageSchema, articlesHomePage };
