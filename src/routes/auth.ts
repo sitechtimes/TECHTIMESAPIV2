@@ -1,23 +1,38 @@
 import express from "express";
 const router = express.Router();
 const authController = require("../controllers/authController");
-// const authMiddleware = require("../../middleware/auth");
-// const adminMiddleware = require("../../middleware/admin");
+import { body } from "express-validator";
+import { validateRequest } from "../utils/requestValidator";
+import { currentUser } from "../utils/currentUser";
 
-router.post("/signup", authController.signUp);
+router.post(
+  "/signup",
+  [
+    body("name").notEmpty().withMessage("Name can't be empty"),
+    body("email").isEmail().withMessage("Email must be valid"),
+    body("password")
+      .trim()
+      .isLength({ min: 8, max: 16 })
+      .withMessage("Password must be between 8 and 16 characters"),
+  ],
+  validateRequest,
+  authController.signUp
+);
 
-// router.post("/login", authController.login);
+router.post(
+  "/signin",
+  [
+    body("email").isEmail().withMessage("Email must be valid"),
+    body("password").trim().notEmpty().withMessage("You must supply a password"),
+  ],
+  validateRequest,
+  authController.signIn
+);
 
-// router.post("/logout", authController.logout);
+router.post("/logout", authController.logout);
 
-// router.post("/refresh", authController.refresh); // auth middleware should be here and in logout
+router.get("/verify/:token", authController.verify);
 
-// router.get("/self/", authMiddleware, authController.self);
-
-// router.get("/users/:username", authController.user);
-
-// router.get("/admin", adminMiddleware, (req, res) => {
-//   res.json({ message: "Admin Test" });
-// });
+router.get("/current-user", currentUser, authController.currentUser);
 
 module.exports = router;

@@ -1,49 +1,15 @@
-import express, { Request, Response } from "express";
-import { User } from "../models/auth/user";
+import { Request, Response } from "express";
+import { User } from "../models/user";
 import jwt from "jsonwebtoken";
 import nodemailer from "nodemailer";
+import bcrypt from "bcrypt";
 
 async function signUp(req: Request, res: Response) {
-  // body("name").notEmpty().withMessage("Name can't be empty"),
-  // body("password").trim().isLength({ min: 8, max: 16 }).withMessage("Password must be between 8 and 16 characters"),
-
   const { name, email, password } = req.body;
 
-  if (!name || !email || !password) {
-    res.status(400).json({ message: "missing fields" });
-    return;
-  }
+  if (await User.findOne({ email }))
+    return res.status(409).json({ message: "user already exists" });
 
-  // check email. it'll be actually verified later...
-  if (!/^\S+@\S+\.\S+$/.test(email)) {
-    res.status(400).json({ message: "bad email" });
-    return;
-  }
-
-  // check password length
-  if (password.length > 16 || password.length < 8) {
-    res.status(400).json({ message: "password must be between 8 and 16 characters" });
-    return;
-  }
-
-  // check if email already in use
-  if (await User.exists({ email }).exec()) {
-    res.status(400).json({ message: "email already in use" });
-    return;
-  }
-
-  res.status(200).json({ message: "your sign is up pal" });
-
-  // if (await User.findOne({ email })) res.status(409).json({ message: "user already exists" });
-
-  // const randString = await Verify.generateToken(email);
-
-  // const user = User.create({ name: name, email: email, password: password, verificationCode: randString });
-  // await user.save();
-
-  // await Verify.sendVerificationEmail(email, randString);
-
-  // res.status(201).send(user.toJSON());
   try {
     const verificationToken = jwt.sign({ email }, process.env.JWT_KEY!, { expiresIn: "20m" });
 
@@ -59,6 +25,7 @@ async function signUp(req: Request, res: Response) {
     const transport = nodemailer.createTransport({
       host: "smtp.gmail.com",
       port: 587,
+      // TODO: is this supposed to be false??
       secure: false,
       auth: {
         user: process.env.EMAIL_USER,
@@ -82,4 +49,72 @@ async function signUp(req: Request, res: Response) {
   }
 }
 
-module.exports = { signUp };
+async function signIn(req: Request, res: Response) {
+  const { email, password } = req.body;
+  const existingUser = await User.findOne({ email });
+
+  if (!existingUser) return res.status(401).json({ message: "Invalid credentials" });
+
+  if (!(await bcrypt.compare(password, existingUser.password)))
+    return res.status(401).json({ message: "Invalid credentials" });
+
+  const payload = {
+    id: existingUser.id,
+    email: existingUser.email,
+    role: existingUser.role,
+  };
+
+  const userJWT = jwt.sign(payload, process.env.JWT_KEY!);
+
+  req.session = {
+    jwt: userJWT,
+  };
+
+  res.status(200).send({
+    ...existingUser.toJSON(),
+    token: userJWT,
+  });
+}
+
+async function logout(req: Request, res: Response) {
+  req.session = null;
+  res.status(204).send({});
+}
+
+async function verify(req: Request, res: Response) {
+  const { token } = req.params;
+
+  let user = await User.findOne({ verificationCode: token });
+
+  if (!user) return res.status(401).json({ message: "Invalid token" });
+
+  if (!process.env.JWT_KEY) return res.status(500).json({ message: "krill issue" });
+
+  try {
+    jwt.verify(token, process.env.JWT_KEY);
+  } catch {
+    return res.status(401).json({ message: "Invalid token" });
+  }
+  user.verified = true;
+  await user.save();
+
+  const payload = {
+    id: user.id,
+    email: user.email,
+    role: user.role,
+  };
+
+  const userJWT = jwt.sign(payload, process.env.JWT_KEY!, { expiresIn: "6h" });
+
+  req.session = {
+    jwt: userJWT,
+  };
+
+  res.status(200).send({ ...user.toJSON(), token: userJWT });
+}
+
+async function currentUser(req: Request, res: Response) {
+  res.send({ ...(req.currentUser || null) });
+}
+
+module.exports = { signUp, signIn, logout, verify, currentUser };
