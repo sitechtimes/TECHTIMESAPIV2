@@ -7,7 +7,7 @@ const {
 const { Role } = require("../../models/cms/role");
 const { DraftStatus } = require("../../models/cms/draftStatus");
 const { Draft } = require("../../models/cms/draft");
-const { connectToDatabase } = require("../index");
+const { connectToDatabase } = require("../../routes/index");
 const sanitize = require("sanitize-html");
 
 const router = express.Router();

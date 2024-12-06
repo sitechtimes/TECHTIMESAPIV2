@@ -1,6 +1,6 @@
 const Article = require("../../models/articles/article");
 const { NotFoundError } = require("@sitechtimes/shared");
-const connectToDatabase = require("../index");
+const connectToDatabase = require("../../routes/index");
 const express = require("express");
 
 const router = express.Router();
