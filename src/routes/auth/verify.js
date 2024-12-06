@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const { decode } = require("jsonwebtoken");
 
 const { BadRequestError, NotFoundError } = require("@sitechtimes/shared");
-const { connectToDatabase } = require("../../routes/index");
+const { connectToDatabase } = require("../index");
 const { User } = require("../../models/auth/user");
 
 const router = express.Router();

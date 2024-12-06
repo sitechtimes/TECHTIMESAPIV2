@@ -3,7 +3,7 @@ const { NotAuthorizedError, NotFoundError } = require("@sitechtimes/shared");
 const { requireAuth } = require("@sitechtimes/shared");
 const { User } = require("../../models/users/user");
 const { Role } = require("../../models/users/role");
-const { connectToDatabase } = require("../../routes/index");
+const { connectToDatabase } = require("../index");
 
 const router = express.Router();
 

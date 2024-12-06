@@ -2,6 +2,9 @@ const express = require("express");
 const mongoose = require("mongoose");
 const router = new express.Router();
 
+const authController = require("../controllers/authController");
+const homePageController = require("../controllers/homePageController");
+
 let cachedPromise = null; // Variable to cache the connection promise
 const connectToDatabase = async () => {
   if (!process.env.JWT_KEY) {

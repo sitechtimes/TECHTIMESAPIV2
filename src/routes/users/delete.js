@@ -1,7 +1,7 @@
 const express = require("express");
 const { NotAuthorizedError, requireAuth } = require("@sitechtimes/shared");
 const { User } = require("../../models/users/user");
-const { connectToDatabase } = require("../../routes/index");
+const { connectToDatabase } = require("../index");
 
 const router = express.Router();
 
