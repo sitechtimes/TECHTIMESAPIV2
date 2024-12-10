@@ -22,20 +22,20 @@ app.use(currentUser);
 
 app.use(
   cookieSession({
-    signed: true, // Ensures the cookie is signed, preventing tampering
-    secret: process.env.COOKIE_KEY, // Used for signing the cookie
+    signed: false, // Ensures the cookie is signed, preventing tampering
+    // secret: process.env.COOKIE_KEY, // Used for signing the cookie
     secure: false, // Make sure to set this to `true` in production with HTTPS
   })
 );
 
-const authRoutes = require("./routes/auth");
-app.use("/auth", authRoutes);
-const userRoutes = require("./routes/users");
-app.use("/users", userRoutes);
 const articlesRoutes = require("./routes/articles");
 app.use("/articles", articlesRoutes);
+const authRoutes = require("./routes/auth");
+app.use("/auth", authRoutes);
 const cmsRoutes = require("./routes/cms");
 app.use("/cms", cmsRoutes);
+const userRoutes = require("./routes/users");
+app.use("/users", userRoutes);
 
 mongoose.connect(process.env.MONGO_URI ?? "").catch((err) => {
   console.error("mongo exploded! do you have .env? ", err);
