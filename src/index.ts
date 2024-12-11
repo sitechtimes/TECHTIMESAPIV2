@@ -10,7 +10,7 @@ const port = process.env.PORT || 3000;
 var cors = require("cors");
 app.use(
   cors({
-    origin: "http://localhost:8000",
+    origin: "http://localhost:3000/",
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
@@ -22,8 +22,8 @@ app.use(currentUser);
 
 app.use(
   cookieSession({
-    signed: false, // Ensures the cookie is signed, preventing tampering
-    // secret: process.env.COOKIE_KEY, // Used for signing the cookie
+    signed: true, // Ensures the cookie is signed, preventing tampering
+    secret: process.env.COOKIE_KEY, // Used for signing the cookie
     secure: false, // Make sure to set this to `true` in production with HTTPS
   })
 );
