@@ -11,12 +11,14 @@ async function signUp(req: Request, res: Response) {
     return res.status(409).json({ message: "user already exists" });
 
   try {
+    const hashedPassword = await bcrypt.hash(password, 10);
+
     const verificationToken = jwt.sign({ email }, process.env.JWT_KEY!, { expiresIn: "20m" });
 
     const newUser = await User.create({
       name,
       email,
-      password,
+      password: hashedPassword,
       verified: false,
       verificationCode: verificationToken,
     });
