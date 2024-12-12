@@ -24,9 +24,16 @@ async function index(req: Request, res: Response) {
 
   if (req.query.sort === "dateDes") sortBy = { updatedAt: -1 as SortOrder };
 
-  const articles = await Article.find(query).sort(sortBy).limit(limit);
+  const articles = await Article.find(query).sort(sortBy).skip(Number(req.query.skip) ?? 0).limit(limit + 1);
+  const isMore = articles.length > limit;
+  if (isMore) articles.pop();
 
-  res.status(200).send(articles);
+  const response = {
+    articles: articles,
+    isMore: isMore
+  };
+
+  res.status(200).send(response);
 }
 
 async function show(req: Request, res: Response) {
