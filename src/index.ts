@@ -22,8 +22,8 @@ app.use(currentUser);
 
 app.use(
   cookieSession({
-    signed: true, // Ensures the cookie is signed, preventing tampering
-    secret: process.env.COOKIE_KEY, // Used for signing the cookie
+    signed: false, // Ensures the cookie is signed, preventing tampering
+    // secret: process.env.COOKIE_KEY, // Used for signing the cookie
     secure: false, // Make sure to set this to `true` in production with HTTPS
   })
 );
