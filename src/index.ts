@@ -1,5 +1,5 @@
 import "dotenv/config";
-import express, { NextFunction, Request, Response } from "express";
+import express from "express";
 import mongoose from "mongoose";
 import cookieSession from "cookie-session";
 import { currentUser } from "./utils/currentUser";
@@ -7,12 +7,25 @@ import { currentUser } from "./utils/currentUser";
 const app = express();
 const port = process.env.PORT || 3000;
 
-var cors = require("cors");
+const origins = new Set(["http://localhost:8089"]);
+
+import cors from "cors";
 app.use(
   cors({
-    origin: "http://localhost:3000/",
+    /*
+    origin: function (origin, callback) {
+      console.log(origin);
+      if (origins.has(origin ?? "")) {
+        callback(null, true); // allow
+      } else {
+        callback(new Error("CORS moment")); // get out
+      }
+    },
+    */
+    origin: "http://localhost:8089",
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
+    optionsSuccessStatus: 200, // compatibility or something. blame ie11
   })
 );
 
@@ -22,9 +35,9 @@ app.use(currentUser);
 
 app.use(
   cookieSession({
-    signed: false, // Ensures the cookie is signed, preventing tampering
-    // secret: process.env.COOKIE_KEY, // Used for signing the cookie
-    secure: false, // Make sure to set this to `true` in production with HTTPS
+    signed: true,
+    secret: process.env.COOKIE_KEY,
+    secure: false, // set this to true in prod
   })
 );
 

@@ -10,7 +10,7 @@ async function homepage(req: Request, res: Response) {
   if (req.query.position) query.position = req.query.position.toString();
 
   const homepages = await Homepage.find(query);
-  res.send(homepages);
+  res.status(200).send(homepages);
 }
 
 async function index(req: Request, res: Response) {
