@@ -19,7 +19,6 @@ async function index(req: Request, res: Response) {
 async function show(req: Request, res: Response) {
   const user = await User.findById(req.params.id);
   if (!user) return res.status(404).json({ message: "chat is this user real" });
-  user.set({ role: Role.Admin });
   await user.save();
   res.send(user);
 }
