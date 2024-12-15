@@ -96,6 +96,8 @@ async function publish(req: Request, res: Response) {
   let output = "";
   let error = "";
   if (process.env.NETLIFY_SITE && process.env.NETLIFY_TOKEN) {
+    res.sendStatus(200); // so user doesn't have to wait
+
     const deployCommand = [
       "deploy",
       "--build", // build site locally
@@ -115,29 +117,11 @@ async function publish(req: Request, res: Response) {
       error += data.toString();
     });
     deployProcess.on("close", (code) => {
-      if (code === 0) {
-        console.log("deployed!");
-        return res.sendStatus(200);
-      }
+      if (code === 0) console.log("deployed!");
     });
   } else {
     console.log("deploy failed!!");
-    console.log(output);
-    console.log(error);
-    return res.status(207).send({
-      responses: [
-        {
-          part: "deploy",
-          status: "error",
-          details: "site deploy failed",
-        },
-        {
-          part: "article saved",
-          status: "success",
-          details: "article was published",
-        },
-      ],
-    });
+    return res.sendStatus(500);
   }
 }
 
