@@ -8,6 +8,7 @@ import { Homepage } from "../models/homepage";
 import { DraftStatus } from "../models/cms/draftStatus";
 import { Role } from "../models/role";
 import sanitize from "sanitize-html";
+import { spawn } from "child_process";
 
 async function categories(req: Request, res: Response) {
   const categories = Object.values(Category);
@@ -90,7 +91,54 @@ async function publish(req: Request, res: Response) {
     await homepage.save();
   }
 
-  res.sendStatus(200);
+  console.log("deploying...");
+
+  let output = "";
+  let error = "";
+  if (process.env.NETLIFY_SITE && process.env.NETLIFY_TOKEN) {
+    const deployCommand = [
+      "deploy",
+      "--build", // build site locally
+      "--prod",
+      `--site=${process.env.NETLIFY_SITE}`,
+      `--auth=${process.env.NETLIFY_TOKEN}`,
+    ];
+
+    // deploy to netlify. insane tomfoolery in that cwd but whatever
+    const deployProcess = spawn("netlify", deployCommand, { shell: true, cwd: "../sitechtimes/" });
+
+    deployProcess.stdout.on("data", (data) => {
+      output += data.toString();
+    });
+
+    deployProcess.stderr.on("data", (data) => {
+      error += data.toString();
+    });
+    deployProcess.on("close", (code) => {
+      if (code === 0) {
+        console.log("deployed!");
+        return res.sendStatus(200);
+      }
+    });
+  } else {
+    console.log("deploy failed!!");
+    console.log(output);
+    console.log(error);
+    return res.status(207).send({
+      responses: [
+        {
+          part: "deploy",
+          status: "error",
+          details: "site deploy failed",
+        },
+        {
+          part: "article saved",
+          status: "success",
+          details: "article was published",
+        },
+      ],
+    });
+  }
 }
 
 async function ready(req: Request, res: Response) {

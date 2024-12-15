@@ -22,7 +22,7 @@ app.use(
       }
     },
     */
-    origin: "http://localhost:8089",
+    origin: ["http://localhost:8089", "http://localhost:8000"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
     optionsSuccessStatus: 200, // compatibility or something. blame ie11
