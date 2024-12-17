@@ -37,7 +37,7 @@ async function signUp(req: Request, res: Response) {
       from: process.env.EMAIL_USER,
       to: email.toString(),
       subject: "TechTimes Email confirmation",
-      html: `Hello there, click the following link to verify your email: <a href="${process.env.URL}/auth/verify/${verificationToken}">Verify Email</a>`,
+      html: `Hello there, click the following link to verify your email: <a href="${process.env.URL}:8000/auth/verify/${verificationToken}">Verify Email</a>`,
     };
 
     await transport.sendMail(mailOptions);

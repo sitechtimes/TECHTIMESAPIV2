@@ -7,22 +7,10 @@ import { currentUser } from "./utils/currentUser";
 const app = express();
 const port = process.env.PORT || 3000;
 
-const origins = new Set(["http://localhost:8089"]);
-
 import cors from "cors";
 app.use(
   cors({
-    /*
-    origin: function (origin, callback) {
-      console.log(origin);
-      if (origins.has(origin ?? "")) {
-        callback(null, true); // allow
-      } else {
-        callback(new Error("CORS moment")); // get out
-      }
-    },
-    */
-    origin: ["http://localhost:8089", "http://localhost:8000"],
+    origin: [process.env.URL+":8089", process.env.URL+":8000"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
     optionsSuccessStatus: 200, // compatibility or something. blame ie11

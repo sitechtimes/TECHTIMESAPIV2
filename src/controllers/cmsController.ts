@@ -162,14 +162,23 @@ async function update(req: Request, res: Response) {
   // draft - for writer
   if (draft.userId == req.currentUser!.id) {
     // TODO - refactor update logic
-    const title = req.body.title == undefined ? draft.title : sanitize(req.body.title);
-    const content = req.body.content == undefined ? draft.content : sanitize(req.body.content);
+    function isEmpty(thing: any) {
+      return thing.toString().trim().length === 0;
+    }
 
+    // these are required!!!! do not let them be empty!!
+    const title = isEmpty(req.body.title) ? draft.title : sanitize(req.body.title);
+    const content = isEmpty(req.body.content) ? draft.content : sanitize(req.body.content);
+
+    // editors can only send to review
     const status = req.body.status == DraftStatus.Review ? req.body.status : draft.status;
-    const imageUrl = req.body.imageUrl == undefined ? draft.imageUrl : req.body.imageUrl;
+
+    // editors can change article category
     const category = req.body.category == undefined ? draft.category : req.body.category;
 
-    const imageAlt = req.body.imageAlt == undefined ? draft.imageAlt : req.body.imageAlt;
+    // not required whatever
+    const imageUrl = req.body.imageUrl == undefined ? draft.imageUrl : req.body.imageUrl; // cms doesn't actually support removing an image?
+    const imageAlt = req.body.imageAlt == undefined ? draft.imageAlt : req.body.imageAlt; // alt can be nuked though
 
     draft.set({ title, content, status, imageUrl, imageAlt, category });
   }
