@@ -118,6 +118,7 @@ async function publish(req: Request, res: Response) {
     });
     deployProcess.on("close", (code) => {
       if (code === 0) console.log("deployed!");
+      else console.log(output, error);
     });
   } else {
     console.log("deploy failed!!");
